@@ -25,7 +25,7 @@ public class Swagger2 {
                 .consumes(DEFAULT_PRODUCES_AND_CONSUMES)
                 .produces(DEFAULT_PRODUCES_AND_CONSUMES)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.cominfo.controller"))
+                .apis(RequestHandlerSelectors.basePackage("com.cominfo.server.controller"))
                 .paths(PathSelectors.any())
                 .build();
     }

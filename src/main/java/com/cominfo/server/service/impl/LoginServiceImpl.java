@@ -12,11 +12,11 @@ public class LoginServiceImpl implements LoginService {
     @Autowired
     private UserMapper loginMapper;
 
-    @Override
-    public boolean login(ReqUserLogin user) {
-        User one = loginMapper.getUserByPassword(user);
-        return one != null;
-    }
+//    @Override
+//    public boolean login(ReqUserLogin user) {
+//        User one = loginMapper.getUserByPassword(user);
+//        return one != null;
+//    }
 
     @Override
     public User getUserById(long id) {
