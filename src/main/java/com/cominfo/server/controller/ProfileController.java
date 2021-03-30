@@ -1,6 +1,7 @@
 package com.cominfo.server.controller;
 
 import com.alibaba.fastjson.JSONObject;
+import com.auth0.jwt.JWT;
 import com.cominfo.server.config.jwt.UserLoginToken;
 import com.cominfo.server.pojo.User;
 import com.cominfo.server.service.ProfileService;
@@ -24,7 +25,7 @@ public class ProfileController {
     @ResponseBody
     @UserLoginToken
     public User getUser(@RequestHeader("Authorization") String token) {
-//        int stuNumber = Integer.parseInt(JWT.decode(token).getAudience().get(0));
+//        System.out.println(JWT.decode(token).getAudience().get(0));
         return service.getUser(TokenServiceImpl.getStuNumber(token));
     }
 

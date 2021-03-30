@@ -42,13 +42,12 @@ public class LoginInterceptor implements HandlerInterceptor {
                     throw new RuntimeException("401");
                 }
 
-//                long userIdInt = Long.parseLong(userId);
                 User user = service.getUserByStuNo(userId);
                 if (user == null) {
                     throw new RuntimeException("用户不存在，请重新登录");
                 }
                 // 验证 token
-                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(String.valueOf(user.getAccount()))).build();
+                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(user.getStuNo())).build();
                 try {
                     jwtVerifier.verify(token);
                 } catch (JWTVerificationException e) {
