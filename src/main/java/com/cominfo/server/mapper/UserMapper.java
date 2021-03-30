@@ -16,4 +16,12 @@ public interface UserMapper {
     User getUserByStuNo(@Param("stuNo") String stuNo);
 
     void addOne(@Param("user") ReqUserRegister user);
+
+    void updateUserGender(User user);
+
+    void updateUserName(User user);
+
+    void updateUserAccount(User user);
+
+    void updateUserPassword(User user);
 }

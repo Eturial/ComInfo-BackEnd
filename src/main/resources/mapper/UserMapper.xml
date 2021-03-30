@@ -6,7 +6,7 @@
 
     <select id="getUserByStuNo" resultMap="selectUser" parameterType="String">
         select
-               id, stuNo, account, password, name, school, gender, permission
+               id, stuNo, account, password, name, school, gender
         from t_user
         where stuNo = #{stuNo}
     </select>
@@ -23,6 +23,22 @@
         values (#{user.stuNo}, #{user.password})
     </insert>
 
+    <update id="updateUserName" parameterType="user">
+        update t_user set name = #{user.name} where stuNo = #{user.stuNo}
+    </update>
+
+    <update id="updateUserGender" parameterType="user">
+        update t_user set gender = #{user.gender} where stuNo = #{user.stuNo};
+    </update>
+
+    <update id="updateUserAccount" parameterType="user">
+        update t_user set account = #{user.account} where stuNo = #{user.stuNo};
+    </update>
+
+    <update id="updateUserPassword" parameterType="user">
+        update t_user set password = #{user.password} where stuNo = #{user.stuNo};
+    </update>
+
     <resultMap id="selectUser" type="user">
         <id property="id" column="id"/>
         <result property="stuNo" column="stuNo"/>
@@ -31,6 +47,6 @@
         <result property="name" column="name"/>
         <result property="school" column="school"/>
         <result property="gender" column="gender"/>
-        <result property="permission" column="permission"/>
+
     </resultMap>
 </mapper>

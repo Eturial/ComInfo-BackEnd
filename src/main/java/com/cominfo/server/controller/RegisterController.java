@@ -19,14 +19,14 @@ public class RegisterController {
 //    private int mailCode;
 
     @PostMapping("/verifyuser")
-    @ApiOperation(value = "获取用户学号 密码", produces = "application/json", httpMethod = "POST")
+    @ApiOperation(value = "验证是否可成功注册", produces = "application/json", httpMethod = "POST")
     @ApiImplicitParam(paramType = "ReqUserRegister", name = "user")
     @ApiResponse(code = 200, message = "注册确认")
     public RespBean verifyUser(@RequestBody ReqUserRegister user) {
         System.out.println(user.toString());
         if (service.isNewUser(user)) {
             if(Objects.equals(user.getPassword(), user.getPrePass())) {
-                return RespBean.success("注册成功");
+                return RespBean.success("注册成功", user);
             } else{
                 return RespBean.error("两次输入密码不一致");
             }
@@ -45,11 +45,10 @@ public class RegisterController {
 //        return service.sendMail(user.getMailbox());
 //    }
 
-
-    @GetMapping("/getUser")
-    public String getUser() {
-        return "success";
-    }
+//    @GetMapping("/getUser")
+//    public String getUser() {
+//        return "success";
+//    }
 
 }
 

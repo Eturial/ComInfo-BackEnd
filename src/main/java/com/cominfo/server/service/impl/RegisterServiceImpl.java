@@ -29,11 +29,8 @@ public class RegisterServiceImpl implements RegisterService {
         if (one != null) {
             return false;
         } else {
-            if(Objects.equals(user.getPassword(),user.getPrePass())) {
-                loginMapper.addOne(user);
-                return true;
-            } else
-                return false;
+            loginMapper.addOne(user);
+            return true;
         }
     }
 
