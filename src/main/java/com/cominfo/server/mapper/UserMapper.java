@@ -17,11 +17,13 @@ public interface UserMapper {
 
     void addOne(@Param("user") ReqUserRegister user);
 
-    void updateUserGender(User user);
+    //There is no getter for property named 'user' in 'class xxx'
+    // 记得加注解 太艹了
+    void updateUserGender(@Param("user") User user);
 
-    void updateUserName(User user);
+    void updateUserName(@Param("user") User user);
 
-    void updateUserAccount(User user);
+    void updateUserAccount(@Param("user") User user);
 
-    void updateUserPassword(User user);
+    void updateUserPassword(@Param("user") User user);
 }

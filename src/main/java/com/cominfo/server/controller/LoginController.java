@@ -39,7 +39,7 @@ public class LoginController {
             } else {
                 String token = tokenService.getToken(user);
                 object.put("token", token);
-                return RespBean.success("登陆成功");
+                return RespBean.success("登陆成功", object);
             }
         }
 
