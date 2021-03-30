@@ -6,6 +6,6 @@ import com.cominfo.server.pojo.User;
 public interface LoginService {
 
 //    boolean login(ReqUserLogin user);
-    User getUserById(long userIdInt);
+    User getUserByStuNo(String stuNo);
 
 }

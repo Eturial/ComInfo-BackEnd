@@ -19,7 +19,7 @@ public class LoginServiceImpl implements LoginService {
 //    }
 
     @Override
-    public User getUserById(long id) {
-        return loginMapper.getUserById(id);
+    public User getUserByStuNo(String stuNo) {
+        return loginMapper.getUserByStuNo(stuNo);
     }
 }

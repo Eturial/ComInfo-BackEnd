@@ -13,7 +13,7 @@ public interface UserMapper {
 
 //    User getUserByPassword(@Param("user") ReqUserLogin user);
 
-    User getUserById(@Param("id") long id);
+    User getUserByStuNo(@Param("stuNo") String stuNo);
 
     void addOne(@Param("user") ReqUserRegister user);
 }

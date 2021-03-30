@@ -14,6 +14,7 @@ import javax.mail.internet.MimeMessage;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.security.GeneralSecurityException;
+import java.util.Objects;
 import java.util.Properties;
 
 
@@ -23,13 +24,16 @@ public class RegisterServiceImpl implements RegisterService {
     private UserMapper loginMapper;
 
     public boolean isNewUser(ReqUserRegister user){
-        User one = loginMapper.getUserById(user.getId());
+        User one = loginMapper.getUserByStuNo(user.getStuNo());
 //        System.out.println(one.toString());
         if (one != null) {
             return false;
         } else {
-            loginMapper.addOne(user);
-            return true;
+            if(Objects.equals(user.getPassword(),user.getPrePass())) {
+                loginMapper.addOne(user);
+                return true;
+            } else
+                return false;
         }
     }
 

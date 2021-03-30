@@ -11,8 +11,11 @@ import lombok.Data;
 @ApiModel(value = "UserModel")
 @Data
 public class User{
-    @ApiModelProperty(value = "学号", dataType = "int64", example = "19408020125")
+    @ApiModelProperty(value = "id", dataType = "int64", example = "1")
     private Integer id;
+
+    @ApiModelProperty(value = "学号", dataType = "String", example = "19408020125")
+    private String stuNo;
 
     @ApiModelProperty(value = "用户名", dataType = "String", example = "Eturial")
     private String account;

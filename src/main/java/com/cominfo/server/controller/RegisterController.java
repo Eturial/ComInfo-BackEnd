@@ -1,10 +1,13 @@
 package com.cominfo.server.controller;
 
 import com.cominfo.server.pojo.ReqUserRegister;
+import com.cominfo.server.pojo.RespBean;
 import com.cominfo.server.service.RegisterService;
 import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Objects;
 
 @RestController
 @RequestMapping(value = "/register")
@@ -16,15 +19,19 @@ public class RegisterController {
 //    private int mailCode;
 
     @PostMapping("/verifyuser")
-    @ApiOperation(value = "获取用户id 密码", produces = "application/json", httpMethod = "POST")
+    @ApiOperation(value = "获取用户学号 密码", produces = "application/json", httpMethod = "POST")
     @ApiImplicitParam(paramType = "ReqUserRegister", name = "user")
     @ApiResponse(code = 200, message = "注册确认")
-    public String verifyUser(@RequestBody ReqUserRegister user) {
-
+    public RespBean verifyUser(@RequestBody ReqUserRegister user) {
+        System.out.println(user.toString());
         if (service.isNewUser(user)) {
-            return "success";
+            if(Objects.equals(user.getPassword(), user.getPrePass())) {
+                return RespBean.success("注册成功");
+            } else{
+                return RespBean.error("两次输入密码不一致");
+            }
         } else {
-            return "fail";
+            return RespBean.error("该用户已存在");
         }
     }
 

@@ -4,11 +4,11 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.cominfo.server.mapper.UserMapper">
 
-    <select id="getUserById" resultMap="selectUser" parameterType="long">
+    <select id="getUserByStuNo" resultMap="selectUser" parameterType="String">
         select
-               id, account, password, name, school, gender, permission
+               id, stuNo, account, password, name, school, gender, permission
         from t_user
-        where id = #{id}
+        where stuNo = #{stuNo}
     </select>
 
 <!--    <select id="getUserByPassword" resultMap="selectUser" parameterType="com.cominfo.server.pojo.ReqUserLogin">-->
@@ -19,12 +19,13 @@
 <!--    </select>-->
 
     <insert id="addOne" parameterType="com.cominfo.server.pojo.ReqUserRegister">
-        insert into t_user(id, password)
-        values (#{user.id}, #{user.password})
+        insert into t_user(stuNo, password)
+        values (#{user.stuNo}, #{user.password})
     </insert>
 
     <resultMap id="selectUser" type="user">
         <id property="id" column="id"/>
+        <result property="stuNo" column="stuNo"/>
         <result property="account" column="account"/>
         <result property="password" column="password"/>
         <result property="name" column="name"/>
