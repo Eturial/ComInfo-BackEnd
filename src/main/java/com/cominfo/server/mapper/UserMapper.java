@@ -2,10 +2,13 @@ package com.cominfo.server.mapper;
 
 import com.cominfo.server.pojo.ReqUserLogin;
 import com.cominfo.server.pojo.ReqUserRegister;
+import com.cominfo.server.pojo.School;
 import com.cominfo.server.pojo.User;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Mapper
 @Repository
@@ -26,4 +29,8 @@ public interface UserMapper {
     void updateUserAccount(@Param("user") User user);
 
     void updateUserPassword(@Param("user") User user);
+
+    void updateUserSchool(@Param("user") User user);
+
+    List<String> getUserSchoolmates(@Param("school") String school);
 }

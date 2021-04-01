@@ -1,8 +1,8 @@
 package com.cominfo.server.controller;
 
 import com.alibaba.fastjson.JSONObject;
-import com.auth0.jwt.JWT;
 import com.cominfo.server.config.jwt.UserLoginToken;
+import com.cominfo.server.pojo.RespBean;
 import com.cominfo.server.pojo.User;
 import com.cominfo.server.service.ProfileService;
 import com.cominfo.server.service.impl.TokenServiceImpl;
@@ -10,6 +10,8 @@ import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 @Controller
@@ -34,7 +36,7 @@ public class ProfileController {
     @ResponseBody
     @UserLoginToken
 //    @PassToken
-    public boolean updateUser(@RequestHeader("Authorization") String token, @RequestBody JSONObject object) {
+    public RespBean updateUser(@RequestHeader("Authorization") String token, @RequestBody JSONObject object) {
         User user = new User();
         user.setPassword(object.getString("password"));
         user.setName(object.getString("name"));
@@ -43,16 +45,17 @@ public class ProfileController {
         user.setGender(object.getString("gender"));
         user.setStuNo(TokenServiceImpl.getStuNumber(token));
 
-        return service.updateUser(user) == 1;
+        return service.updateUser(user);
     }
 
 
-//    @GetMapping("/mycommunity")
-//    @ResponseBody
-//    public List<Community> getCommunities(@RequestHeader("token") String token) {
-//        int stuNumber = Integer.parseInt(JWT.decode(token).getAudience().get(0));
-//        return service.getCommunities(stuNumber);
-//    }
+    @GetMapping("/mySchoolmates")
+    @ResponseBody
+    public List<String> getUserSchoolmates(@RequestHeader("token") String token) {
+        User user = service.getUser(TokenServiceImpl.getStuNumber(token));
+        String school = user.getSchool();
+        return service.getUserSchoolmates(school);
+    }
 
 
 //    @RequestMapping(value = "/createcommunity", method = RequestMethod.POST)

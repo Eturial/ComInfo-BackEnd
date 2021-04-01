@@ -1,6 +1,7 @@
 package com.cominfo.server.service.impl;
 
 import com.cominfo.server.mapper.UserMapper;
+import com.cominfo.server.pojo.RespBean;
 import com.cominfo.server.pojo.User;
 import com.cominfo.server.service.ProfileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class ProfileServiceImpl implements ProfileService {
     }
 
     @Override
-    public int updateUser(User user) {
+    public RespBean updateUser(User user) {
         // 获取当前user对象 用于密码检验
         User checkPassword = userMapper.getUserByStuNo(user.getStuNo());
 
@@ -32,20 +33,31 @@ public class ProfileServiceImpl implements ProfileService {
             userMapper.updateUserName(user);
         }
         if (user.getAccount() != null) {
-            userMapper.updateUserAccount(user);
+            try{
+                userMapper.updateUserAccount(user);
+            } catch (Exception e) {
+                Throwable cause = e.getCause();
+                if(cause instanceof java.sql.SQLIntegrityConstraintViolationException) {
+                    return RespBean.error("该用户已存在");
+                }
+            }
+        }
+
+        if(user.getSchool() != null) {
+            userMapper.updateUserSchool(user);
         }
         if (user.getPassword() != null && !checkPassword.getPassword().equals(user.getPassword())) {
             userMapper.updateUserPassword(user);
         } else if (checkPassword.getPassword().equals(user.getPassword())){
-            return 0;
+            return RespBean.error("新密码与原密码不能相同");
         }
-        return 1;
+        return RespBean.success("操作成功");
     }
 
-//    @Override
-//    public List<Community> getCommunities(int stuNumber) {
-//        return communityDao.getCommunities(stuNumber);
-//    }
+    @Override
+    public List<String> getUserSchoolmates(String school) {
+        return userMapper.getUserSchoolmates(school);
+    }
 
 //    @Override
 //    public boolean createCommunity(Community community) {

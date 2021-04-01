@@ -11,7 +11,13 @@
         where stuNo = #{stuNo}
     </select>
 
-<!--    <select id="getUserByPassword" resultMap="selectUser" parameterType="com.cominfo.server.pojo.ReqUserLogin">-->
+    <select id="getUserSchoolmates" resultType="java.lang.String">
+        select account
+        from t_user
+        where school = #{school}
+    </select>
+
+    <!--    <select id="getUserByPassword" resultMap="selectUser" parameterType="com.cominfo.server.pojo.ReqUserLogin">-->
 <!--        select-->
 <!--               id, account, password, name, school, gender, permission-->
 <!--        from t_user-->
@@ -39,6 +45,9 @@
         update t_user set password = #{user.password} where stuNo = #{user.stuNo};
     </update>
 
+    <update id="updateUserSchool" parameterType="user">
+        update t_user set school = #{user.school} where stuNo = #{user.stuNo};
+    </update>
     <resultMap id="selectUser" type="user">
         <id property="id" column="id"/>
         <result property="stuNo" column="stuNo"/>
